@@ -1,0 +1,20 @@
+# Environment variables / secrets
+.env
+.env.*
+
+# Virtual environment
+venv/
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Local vector database
+chroma_db/
+
+# IDE / OS
+.vscode/
+.DS_Store
+Thumbs.db

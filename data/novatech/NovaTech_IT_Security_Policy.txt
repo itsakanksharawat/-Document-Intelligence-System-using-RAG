@@ -1,0 +1,26 @@
+NovaTech Solutions - IT and Data Security Policy
+Effective Date: January 1, 2026
+
+1. Purpose
+This policy ensures the protection of company data, systems, and devices.
+
+2. Password Policy
+- Passwords must be at least 10 characters long and include numbers and special characters.
+- Passwords must be changed every 90 days.
+- Sharing passwords is strictly prohibited.
+
+3. Device Security
+- Company laptops must have screen lock enabled.
+- Employees must not install unauthorized software.
+- Lost or stolen devices must be reported to IT within 2 hours.
+
+4. Data Protection
+- Confidential data must not be stored on personal devices.
+- Official documents should only be shared through approved company tools.
+
+5. Internet and Email Usage
+- Visiting unsafe or inappropriate websites is not allowed.
+- Official email should not be used for personal communication.
+
+6. Reporting Incidents
+Any security incident or suspicious activity must be immediately reported to itsecurity@novatech.com.
