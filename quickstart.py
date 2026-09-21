@@ -1,86 +1,191 @@
 from src.ingestion import ingest_documents
-
 from src.vector_store import create_index
-
-from src.rag import (
-    create_llm,
-    create_retriever,
-    ask_rag,
-)
+from src.rag import ask_rag, create_reranker
+from src.generator import create_llm
 
 
-# ============================================================
-# 1. Ingest documents
-# ============================================================
+# ---------------------------------------------------------
+# INGEST DOCUMENTS
+# ---------------------------------------------------------
 
 nodes = ingest_documents()
 
 
-# ============================================================
-# 2. Create vector index
-# ============================================================
+# ---------------------------------------------------------
+# CREATE VECTOR INDEX
+# ---------------------------------------------------------
 
 index = create_index(nodes)
 
 
-# ============================================================
-# 3. Create LLM
-# ============================================================
+# ---------------------------------------------------------
+# LOAD LLM
+# ---------------------------------------------------------
 
 llm = create_llm()
 
 
-# ============================================================
-# 4. Create retriever
-# ============================================================
+# ---------------------------------------------------------
+# LOAD RERANKER
+# ---------------------------------------------------------
 
-retriever = create_retriever(index)
+reranker = create_reranker()
 
 
-# ============================================================
-# 5. Start chatbot
-# ============================================================
+# ---------------------------------------------------------
+# GET AVAILABLE COMPANIES
+# ---------------------------------------------------------
+
+companies = sorted(
+    set(
+        node.metadata.get(
+            "company_id",
+            "unknown"
+        )
+        for node in nodes
+    )
+)
+
 
 print("\n" + "=" * 70)
-print("NOVATECH COMPANY KNOWLEDGE COPILOT")
+print("COMPANY KNOWLEDGE COPILOT")
 print("=" * 70)
 
-print("Ask questions about the company policies.")
-print("Type 'exit' to quit.")
 
+print("\nAvailable companies:")
+
+for i, company in enumerate(
+    companies,
+    start=1,
+):
+    print(
+        f"{i}. {company}"
+    )
+
+
+# ---------------------------------------------------------
+# SELECT COMPANY
+# ---------------------------------------------------------
 
 while True:
 
-    question = input("\nYou: ")
+    choice = input(
+        "\nSelect company number: "
+    )
 
-    if question.lower() == "exit":
+    try:
 
-        print("Goodbye!")
+        choice = int(choice)
+
+        if 1 <= choice <= len(companies):
+
+            company_id = companies[
+                choice - 1
+            ]
+
+            break
+
+        print(
+            "Invalid choice. "
+            "Please select a valid number."
+        )
+
+    except ValueError:
+
+        print(
+            "Please enter a number."
+        )
+
+
+# ---------------------------------------------------------
+# COMPANY SELECTED
+# ---------------------------------------------------------
+
+print("\n" + "=" * 70)
+
+print(
+    f"COMPANY SELECTED: "
+    f"{company_id.upper()}"
+)
+
+print("=" * 70)
+
+print(
+    "Ask questions about this company's documents."
+)
+
+print(
+    "Type 'exit' to quit."
+)
+
+
+# ---------------------------------------------------------
+# QUESTION LOOP
+# ---------------------------------------------------------
+
+while True:
+
+    question = input(
+        "\nYou: "
+    )
+
+    if question.lower().strip() == "exit":
+
+        print(
+            "Goodbye!"
+        )
 
         break
 
-    response, retrieved_nodes = ask_rag(
-        question,
-        retriever,
-        llm,
+    if not question.strip():
+
+        print(
+            "Please enter a question."
+        )
+
+        continue
+
+
+    # -----------------------------------------------------
+    # RUN RAG
+    # -----------------------------------------------------
+
+    result = ask_rag(
+        question=question,
+        index=index,
+        company_id=company_id,
+        reranker=reranker,
+        llm=llm,
     )
 
+
+    # -----------------------------------------------------
+    # ANSWER
+    # -----------------------------------------------------
+
     print("\nAssistant:")
-    print(response)
+
+    print(
+        result["answer"]
+    )
+
+
+    # -----------------------------------------------------
+    # SOURCES
+    # -----------------------------------------------------
 
     print("\nSources:")
 
-    seen_sources = set()
+    if result["sources"]:
 
-    for node in retrieved_nodes:
+        for source in result["sources"]:
 
-        source = node.metadata.get(
-            "file_name",
-            "Unknown source",
+            print(
+                f"- {source}"
+            )
+
+    else:
+
+        print(
+            "- No supporting sources found."
         )
-
-        if source not in seen_sources:
-
-            print(f"- {source}")
-
-            seen_sources.add(source)

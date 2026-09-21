@@ -37,9 +37,9 @@ COLLECTION_NAME = "company_knowledge"
 # RAG configuration
 # ============================================================
 
-CHUNK_SIZE = 200
-CHUNK_OVERLAP = 30
-TOP_K = 3
+CHUNK_SIZE = 500
+CHUNK_OVERLAP = 75
+TOP_K = 8
 
 
 # ============================================================

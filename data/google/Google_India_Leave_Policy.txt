@@ -1,0 +1,131 @@
+DOCUMENT TITLE: Google India Leave Policy
+COMPANY: Google
+COMPANY ID: google
+COUNTRY: India
+DOCUMENT TYPE: Employee Leave Policy
+SOURCE TYPE: Public / Third-party
+SOURCE: <original URL>
+RETRIEVED: 2026-09-16
+
+IMPORTANT:
+This document contains publicly available information about
+Google India employee leave policies. It is not an internal
+Google HR document. Policies may vary by location, employment
+type, business unit, grade, and policy version.
+
+Google Earned Leave Policy
+Employees at Google India are given 15 earned (paid leaves in a year). The earned leaves will only get credited to the employee’s leave balance account after completing one year in the organization, and they can avail of them after that.
+
+Google Carried Forward Leave Policy
+Google India provides 15 annual leaves to its employees in a year, which they can utilize accordingly. At the end of the year, if employees have earned leaves left in their leave balance account, then they can carry forward their paid (earned) leaves to the next consecutive years.
+
+Note: If employees have 15 earned leaves left at the end of the year, they can carry forward all of the leaves to the next year.
+
+Google India Casual Leave Policy
+All the employees working at Google India are eligible for six (6) casual leaves. Casual leaves, also known as privileged leave, are the type of leaves that employees have to take for unforeseen events to take care of some personal matters. Casual leave at Google India is only allowed after completing the probation period.
+
+Google India Sick and Vacation Leave Policy
+Google employees can avail of 6 sick leaves in a year. Also, employees at Google can now avail of a minimum of 20 paid vacation days annually, which was only 15 days off earlier. However, the amount of paid time off PTO an employee gets in Google will depend on their job title and how long they’ve been associated with the company. Google uses a hybrid work model that allows most of its employees two work-from-home days every week, in addition to the four work-from-anywhere weeks per year.
+
+Having this type of flexibility in the organization is becoming more and more important. It gives employees a little more space and control over their schedules and everyday tasks.
+
+Google India Parental Leave Policy
+Google provides many extra benefits to support their employees at every stage of their lives. The company provides a considerable amount of paid time off to their employees when they welcome a new child through childbirth, adoption, or fostering. Google makes sure that it gives both parents the required time off at home with their child before returning to work. Also, there are free on-site daycares for children.
+
+In January 2022, Google announced that birthing parents now can take up to 24 weeks of paid time off (earlier, it was 18 weeks) to look after their newborn baby. Whereas, all other parents are entitled to 18 weeks of paid leave (earlier, it was 12 weeks) as baby bonding leave. Employees at Google are also entitled to receive caregiver leave. Starting April 2022, Googlers are allowed up to 8 weeks of paid leaves to take care of their loved ones who are seriously ill patients at home.
+
+Leave during the Probation Period
+Employees at Google are usually not allowed to take leaves during the probation period. However, after the confirmation of their service, employees can get casual leave, and sick leave, which is 12 leaves per year. Employees can also be eligible for 15 earned leaves only after completing one year with the company.
+
+Google India holidays List in 2026
+Date	Holiday
+January 1	New Year’s Day
+January 26	Republic Day
+February 1	Maha Shivratri
+March 8	Holi
+April 14	Dr. B.R. Ambedkar’s Birthday
+April 22	Id-ul-Fitr
+May 1	May Day
+May 9	Rabindra Jayanti
+June 29	Id-ul-Zuha
+July 29	Muharram
+August 15	Independence Day
+September 6	Janmashtami
+September 17	Vishwakarma Puja
+September 28	Foteha Dwaz Dham
+October 2	Gandhi Jayanti
+October 14	Mahalaya
+October 20-28	Durga Puja & Lakshmi Puja
+November 12-15	Kali Puja & Bhratridwitiya
+November 27	Guru Nanak’s Birthday
+December 25	Christmas Day
+
+Google India Leave Policy — Quick Employee Guide
+Policies and workflows can differ by location, employment type, business unit and grade.
+Always verify the latest details in the HRIS/People portal, current HR policy and manager communications.
+
+Indicative Leave Types (India)
+Leave Type	Purpose	Notes
+PTO / Privilege Leave	Planned time-off, vacations	Accrual/flexible model; request via People portal
+Sick Leave	Illness, recovery	Medical certificate required beyond threshold
+Casual Leave	Short personal work	State rules may influence entitlement
+Maternity Benefit	As per Indian law	Up to 26 weeks (conditions apply)
+Paternity/Adoption Leave	New parent support	As per policy and approval workflow
+Bereavement / Wellness Days	Wellbeing & family support	Manager approval as applicable
+Exact entitlements/workflows depend on role, location and policy version. Check HRIS for your eligibility.
+
+Holiday Calendar (India)
+Holiday lists are released annually; many teams follow a region-specific calendar.
+Check Holiday Calendar in the People portal for your city/region and team before booking long weekends.
+
+Region Mini-Note (Examples)
+Bengaluru: Regional festivals (e.g., Ugadi) may be part of the calendar.
+Hyderabad: Local public holidays (e.g., Bonalu) can vary by team calendar.
+Gurugram: North-India festival lineup (e.g., Holi/Diwali) plus national days.
+Always rely on your team’s published calendar in the People portal.
+
+Hybrid/Attendance Basics
+Follow team/location hybrid norms; align with manager and project plans.
+Mark WFH/WFO correctly to avoid attendance corrections or LOP.
+Payroll & Statutory Compliance
+PF/ESI: Processed as per eligibility; verify UAN/ESIC in HRIS.
+TDS (Income Tax): Submit proofs during the investment declaration window.
+Gratuity and Maternity Benefits: Processed per law and policy.
+Apply Leave & Verify Holidays (HRIS)
+Login to the HRIS/People portal → open Leave & Attendance.
+Select the correct leave type (PTO/CL/SL) and dates.
+Attach supporting documents where required (medical/travel).
+Open Holiday Calendar for your city/region/team and plan accordingly.
+Submit for manager approval and track status under My Requests.
+Tip: Add handover notes to keep projects on track and avoid last-minute payroll issues.
+
+Salary Impact, LOP & Sandwich Rule
+Payroll impact: Approved leave is updated into payroll as per policy.
+LOP (Loss of Pay): If balance is nil or leave is unapproved/late, absence may be treated as LOP.
+Sandwich rule: Applicability can vary; confirm if weekly offs/holidays between leave dates count as leave.
+Leave Encashment (If Applicable)
+Under flexible/PTO models, encashment may not apply. Where encashment is allowed (e.g., accrued PTO or at Full & Final), payout is processed via payroll and taxed as per law.
+
+
+Leave Encashment — Illustration
+Parameter	Example Value	Explanation
+Monthly Eligible Pay (e.g., Basic + DA)	₹65,000	Illustrative component used for payout
+Accrued PTO/EL Balance	8 days	As per HRIS ledger (if applicable)
+Daily Rate (Illustrative)	₹2,166.67	₹65,000 ÷ 30 days
+Gross Encashment	₹17,333	8 × ₹2,166.67
+TDS (Example)	₹1,733	10% illustration; actual tax per slab/rules
+Net Payout (Payroll)	₹15,600	Credited with salary as per payroll cycle
+Disclaimer: Eligibility, formula and taxation depend on policy, role and law.
+
+FAQs
+How do I check city-wise or team-wise holidays?
+What happens if I apply late?
+Is leave encashment available?
+Do I need a medical certificate for Sick Leave?
+Quick Checklist (Before You Apply)
+Choose the correct leave type and verify balance in HRIS.
+Confirm the holiday calendar for your city/region/team.
+Attach medical/travel proofs if required.
+Coordinate with your manager/project and track approval.
+
+

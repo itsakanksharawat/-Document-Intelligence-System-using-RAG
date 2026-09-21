@@ -5,8 +5,8 @@ from llama_index.core import (
     VectorStoreIndex,
 )
 
-from llama_index.embeddings.google_genai import (
-    GoogleGenAIEmbedding,
+from llama_index.embeddings.huggingface import (
+    HuggingFaceEmbedding,
 )
 
 from llama_index.vector_stores.chroma import (
@@ -14,26 +14,40 @@ from llama_index.vector_stores.chroma import (
 )
 
 from src.config import (
-    GOOGLE_API_KEY,
     CHROMA_DIR,
     COLLECTION_NAME,
-    EMBEDDING_MODEL,
 )
 
 
-def create_embedding_model():
+# ============================================================
+# 1. CREATE EMBEDDING MODEL
+# ============================================================
 
-    embedding_model = GoogleGenAIEmbedding(
-        model_name=EMBEDDING_MODEL,
-        api_key=GOOGLE_API_KEY,
+def create_embedding_model():
+    """
+    Create the local BGE embedding model.
+
+    The model runs locally.
+    No Gemini embedding API is required.
+    """
+
+    embedding_model = HuggingFaceEmbedding(
+        model_name="BAAI/bge-small-en-v1.5"
     )
 
-    print("Embedding model loaded.")
+    print("Local embedding model loaded.")
 
     return embedding_model
 
 
+# ============================================================
+# 2. CREATE CHROMA STORE
+# ============================================================
+
 def create_chroma_store():
+    """
+    Connect to the persistent ChromaDB collection.
+    """
 
     chroma_client = chromadb.PersistentClient(
         path=CHROMA_DIR
@@ -52,7 +66,17 @@ def create_chroma_store():
     return vector_store, collection
 
 
+# ============================================================
+# 3. GET EXISTING DOCUMENTS
+# ============================================================
+
 def get_existing_documents(collection):
+    """
+    Get existing documents from ChromaDB.
+
+    We use our own `document_key` metadata to identify
+    documents instead of Chroma's internal record IDs.
+    """
 
     data = collection.get(
         include=["metadatas"]
@@ -85,24 +109,30 @@ def get_existing_documents(collection):
     return existing_documents
 
 
-def process_documents(
-    nodes,
-    collection,
-):
+# ============================================================
+# 4. GROUP NODES BY DOCUMENT
+# ============================================================
 
-    existing_documents = (
-        get_existing_documents(
-            collection
-        )
-    )
+def group_nodes_by_document(nodes):
+    """
+    Group chunks belonging to the same document.
 
-    # Group incoming nodes by document
+    Example:
+
+    google/Google_Code_of_Conduct.pdf
+        -> [chunk1, chunk2, chunk3, ...]
+
+    novatech/NovaTech_Remote_Work_Policy.txt
+        -> [chunk1, chunk2, ...]
+    """
+
     documents = {}
 
     for node in nodes:
 
         document_key = node.metadata.get(
-            "document_key"
+            "document_key",
+            "unknown"
         )
 
         documents.setdefault(
@@ -110,13 +140,55 @@ def process_documents(
             []
         ).append(node)
 
+    return documents
+
+
+# ============================================================
+# 5. PROCESS DOCUMENTS
+# ============================================================
+
+def process_documents(
+    nodes,
+    collection,
+):
+    """
+    Determine which documents need indexing.
+
+    Possible states:
+
+        [NEW]
+        [UNCHANGED]
+        [MODIFIED]
+    """
+
+    existing_documents = get_existing_documents(
+        collection
+    )
+
+    documents = group_nodes_by_document(
+        nodes
+    )
+
     nodes_to_index = []
 
-    for document_key, document_nodes in (
-        documents.items()
-    ):
+    for (
+        document_key,
+        document_nodes,
+    ) in documents.items():
 
-        new_hash = document_nodes[0].metadata.get(
+        first_node = document_nodes[0]
+
+        company_id = first_node.metadata.get(
+            "company_id",
+            "unknown"
+        )
+
+        document_id = first_node.metadata.get(
+            "document_id",
+            "unknown"
+        )
+
+        new_hash = first_node.metadata.get(
             "content_hash"
         )
 
@@ -124,9 +196,9 @@ def process_documents(
             document_key
         )
 
-        # --------------------------------------------
-        # New document
-        # --------------------------------------------
+        # ----------------------------------------------------
+        # NEW DOCUMENT
+        # ----------------------------------------------------
 
         if old_hash is None:
 
@@ -138,9 +210,9 @@ def process_documents(
                 document_nodes
             )
 
-        # --------------------------------------------
-        # Existing unchanged document
-        # --------------------------------------------
+        # ----------------------------------------------------
+        # UNCHANGED DOCUMENT
+        # ----------------------------------------------------
 
         elif old_hash == new_hash:
 
@@ -148,9 +220,9 @@ def process_documents(
                 f"[UNCHANGED] {document_key}"
             )
 
-        # --------------------------------------------
-        # Existing modified document
-        # --------------------------------------------
+        # ----------------------------------------------------
+        # MODIFIED DOCUMENT
+        # ----------------------------------------------------
 
         else:
 
@@ -164,7 +236,14 @@ def process_documents(
 
             collection.delete(
                 where={
-                    "document_key": document_key
+                    "$and": [
+                        {
+                            "company_id": company_id
+                        },
+                        {
+                            "document_key": document_key
+                        },
+                    ]
                 }
             )
 
@@ -175,13 +254,32 @@ def process_documents(
     return nodes_to_index
 
 
+# ============================================================
+# 6. CREATE / UPDATE INDEX
+# ============================================================
+
 def create_index(nodes):
+    """
+    Create or update the Chroma-backed vector index.
+    """
+
+    # --------------------------------------------------------
+    # Embedding model
+    # --------------------------------------------------------
 
     embedding_model = create_embedding_model()
+
+    # --------------------------------------------------------
+    # Chroma
+    # --------------------------------------------------------
 
     vector_store, collection = (
         create_chroma_store()
     )
+
+    # --------------------------------------------------------
+    # Determine documents to index
+    # --------------------------------------------------------
 
     nodes_to_index = process_documents(
         nodes,
@@ -193,15 +291,19 @@ def create_index(nodes):
         f"{len(nodes_to_index)}"
     )
 
+    # --------------------------------------------------------
+    # Storage context
+    # --------------------------------------------------------
+
     storage_context = (
         StorageContext.from_defaults(
             vector_store=vector_store
         )
     )
 
-    # --------------------------------------------
-    # Index new/modified documents
-    # --------------------------------------------
+    # --------------------------------------------------------
+    # Index new/modified chunks
+    # --------------------------------------------------------
 
     if nodes_to_index:
 
@@ -213,12 +315,8 @@ def create_index(nodes):
 
         print(
             "New/modified documents embedded "
-            "and stored."
+            "locally and stored."
         )
-
-    # --------------------------------------------
-    # No changes
-    # --------------------------------------------
 
     else:
 
